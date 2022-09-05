@@ -1,0 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 10px;
+}
+main {
+  margin: 2rem;
+}
+
+.hex,
+.rgb,
+.hsl {
+  display: flex;
+  padding: 5px;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 20px;
+}
