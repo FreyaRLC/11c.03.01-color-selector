@@ -22,3 +22,13 @@ main {
   font-weight: bold;
   font-size: 20px;
 }
+.colored_box {
+  height: 100px;
+  aspect-ratio: 1;
+  /* background-color: aqua; */
+  margin: 1rem 0;
+}
+
+#color_input {
+  margin-bottom: 1rem;
+}

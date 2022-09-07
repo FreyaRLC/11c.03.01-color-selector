@@ -1,37 +1,58 @@
 "use strict";
-const theInput = document.querySelector("#color_input");
-const theColor = theInput.value;
 // let h, s, l;
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-  theInput.addEventListener("input", trainStation);
-  //   console.log(theInput.value);
+  document.querySelector("#color_input").addEventListener("input", getInput);
 }
 
-function trainStation() {
-  showHEX(theInput.value);
-  //   console.log(theInput.value);
+function getInput() {
+  const theInput = document.querySelector("#color_input");
+  trainStation(theInput.value);
+}
+
+function trainStation(inputValue) {
+  let rgbValue = hexToRGB(inputValue);
+  let hslValue = rgbToHSL(rgbValue);
+  let cssValue = rgbToCSS(rgbValue);
+  let hexValue = rgbToHex(rgbValue);
+  showRBG(rgbValue);
+  showHSL(hslValue);
+  showCSS(cssValue);
+  showHEX(hexValue);
 }
 
 function showHEX(hex) {
-  document.querySelector("#hex").textContent += ` ${theInput.value}`;
+  document.querySelector("#hex").textContent = `hex: ${hex}`;
+}
+
+function showRBG(rgb) {
+  document.querySelector("#rgb").textContent = `rgb: ${rgb.r}, ${rgb.g}, ${rgb.b}`;
+}
+
+function showHSL(hsl) {
+  document.querySelector("#hsl").textContent = `hsl: ${Math.round(hsl.h)}, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%`;
+}
+
+function showCSS(css) {
+  document.querySelector(".colored_box").style.backgroundColor = css;
+}
+
+function hexToRGB(hex) {
   const r = parseInt(hex.substring(1, 3), 16);
   const g = parseInt(hex.substring(3, 5), 16);
   const b = parseInt(hex.substring(5), 16);
-  showRBG(r, g, b);
+  return {r, g, b};
+}
+function rgbToCSS(rgb) {
+  return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 }
 
-function showRBG(r, g, b) {
-  document.querySelector("#rgb").textContent += ` ${r}, ${g}, ${b}`;
-  //   r = r.toString(16).padStart(2, "0");
-  //   g = g.toString(16).padStart(2, "0");
-  //   b = b.toString(16).padStart(2, "0");
-  //   console.log(`#${r}${g}${b}`);
-  convertToHSL(r, g, b);
-}
+function rgbToHSL(rgb) {
+  let r = rgb.r;
+  let g = rgb.g;
+  let b = rgb.b;
 
-function convertToHSL(r, g, b) {
   r /= 255;
   g /= 255;
   b /= 255;
@@ -66,10 +87,14 @@ function convertToHSL(r, g, b) {
   s *= 100;
   l *= 100;
 
-  //   console.log(`${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%`); // just for testing
-  showHSL(h, s, l);
+  // console.log(`${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%`); // just for testing
+  return {h, s, l};
 }
 
-function showHSL(h, s, l) {
-  document.querySelector("#hsl").textContent += ` ${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%`;
+function rgbToHex(rgb) {
+  // console.log(rgb);
+  rgb.r = rgb.r.toString(16).padStart(2, "0");
+  rgb.g = rgb.g.toString(16).padStart(2, "0");
+  rgb.b = rgb.b.toString(16).padStart(2, "0");
+  return `#${rgb.r}${rgb.g}${rgb.b}`;
 }
