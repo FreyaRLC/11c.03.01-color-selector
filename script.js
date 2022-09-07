@@ -36,7 +36,7 @@ function showHSL(hsl) {
 }
 
 function showCSS(css) {
-  document.querySelector(".colored_box").style.backgroundColor = css;
+  document.querySelector(".color_box").style.backgroundColor = css;
 }
 
 function hexToRGB(hex) {
